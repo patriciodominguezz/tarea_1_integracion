@@ -1,0 +1,87 @@
+
+<section class="hero is-success">
+  <div class="hero-body">
+    <p class="title">
+      <%= link_to "Tarea 1", homes_index_path %>
+    </p>
+
+    <p class="subtitle">
+      Personajes
+  </div>
+  <%= form_with(model:  @search , method: :post, url: search_character_path) do |f| %>
+    <div class="field is-grouped is-grouped-right">
+      <p class="control is-normal">
+      
+        <%= f.text_field :search, class: "input", placeholder: "Buscar personaje"%>
+        
+      </p>
+      <p class="control">
+      <%= f.submit "Buscar", class: 'button is-info '%>
+    </p>
+      
+    </div>
+  <% end %>
+</section>
+
+<figure class="image ">
+  <img src= <%= @personaje["img"]%> style= "width:600px;height:800px;" >
+</figure>
+
+<div class="card">
+  <div class="card-content">
+    <div class="media">
+      <div class="media-content">
+        <p class="title is-4"><%=@personaje["name"]%> </p>
+        <p class="subtitle is-6"><%=@personaje["status"]%></p>
+      </div>
+    </div>
+
+    <div class="content">
+    <strong> Alias </strong>
+    <br>
+    <%= @personaje["nickname"]%>
+    <br>
+     <strong> Ocupación </strong>
+     <br>
+     <% @personaje["occupation"].each do |ocupacion|%>
+     <%= ocupacion%>
+    <br>
+     <%end%>
+    <strong> Actor </strong>
+    <br>
+    <%= @personaje["portrayed"]%>
+    <br>
+    <strong> Frases </strong>
+     <br>
+    <% if @frases.empty?%>
+      Este personaje no cuenta con frases
+    <%else%>
+     <% @frases.each do |frase|%>
+     <%= '"'+ frase[0] + '"' + '(' + frase[1]+ ')'%>
+    <br>
+    <%end%>
+    <%end%>
+    <br>
+    <strong> Breaking Bad </strong>
+     <br>
+     <% if @personaje["appearance"].empty?%>
+      Este personaje no tiene participacion en esta serie
+      <%else%>
+     <% @personaje["appearance"].each do |season|%>
+     <%= link_to ('Temporada '+ season.to_s + ","), breaking_bad_season_path(id: season)%>
+     <%end%>
+     <%end%>
+    <br>
+    <strong> Better Call Saul</strong>
+     <br>
+     <% if @personaje["better_call_saul_appearance"].empty?%>
+      Este personaje no tiene participacion en esta serie
+      <%else%>
+     <% @personaje["better_call_saul_appearance"].each do |season|%>
+     <%= link_to ('Temporada '+ season.to_s + ","), better_call_saul_season_path(id: season)%>
+     <%end%>
+     <%end%>
+
+    </div>
+  </div>
+</div>

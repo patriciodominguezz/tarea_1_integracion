@@ -1,0 +1,48 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <p class="title">
+      <%= link_to "Tarea 1", homes_index_path %>
+    </p>
+
+    <p class="subtitle">
+       <%= "Better Call Saul Temporada " + @id%> 
+    </p>
+  </div>
+  <%= form_with(model:  @search , method: :post, url: search_character_path) do |f| %>
+    <div class="field is-grouped is-grouped-right">
+      <p class="control is-normal">
+      
+        <%= f.text_field :search, class: "input", placeholder: "Buscar personaje"%>
+        
+      </p>
+      <p class="control">
+      <%= f.submit "Buscar", class: 'button is-info '%>
+    </p>
+      
+    </div>
+  <% end %>
+</section>
+
+<section class="section">
+<div class="columns is-centered">
+<div class="column is-narrow">
+<table class = "table table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+<thead>
+  <tr>
+  <th><strong>Capitulo</strong></th>
+  <th><strong> Titulo </strong></th>
+  </tr> 
+</thead>
+<tbody>
+<% @episodios.each do |episodio| %>
+  <tr>
+    <td> <%= episodio[0]  %></td>
+    <td> <%= link_to episodio[1], better_call_saul_episode_path(name: episodio[1])  %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<%= link_to "Volver", homes_index_path%>

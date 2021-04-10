@@ -1,0 +1,51 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <p class="title">
+      <%= link_to "Tarea 1", homes_index_path %>
+    </p>
+
+    <p class="subtitle">
+       <%= "Busqueda de personaje"%> 
+    </p>
+  </div>
+  <%= form_with(model:  @search , method: :post, url: search_character_path) do |f| %>
+    <div class="field is-grouped is-grouped-right">
+      <p class="control is-normal">
+      
+        <%= f.text_field :search, class: "input", placeholder: "Buscar personaje"%>
+        
+      </p>
+      <p class="control">
+      <%= f.submit "Buscar", class: 'button is-info '%>
+    </p>
+      
+    </div>
+  <% end %>
+</section>
+
+<section class="section">
+<div class="columns is-centered">
+<div class="column is-narrow">
+
+<table class = "table table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+<thead>
+  <tr>
+  <th><strong>Personaje</strong></th>
+
+  </tr> 
+</thead>
+<tbody>
+<% @resultado_final.each do |character| %>
+  <tr>
+    <td> <%= link_to character["name"], character_path(character_name: character["name"]) %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+
+<%= link_to "Volver", homes_index_path%>
