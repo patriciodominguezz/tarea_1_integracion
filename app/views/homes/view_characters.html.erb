@@ -35,9 +35,9 @@
   </tr> 
 </thead>
 <tbody>
-<% @resultado_final.each do |character| %>
+<% @personajes.each do |personaje| %>
   <tr>
-    <td> <%= link_to character["name"], character_path(character_name: character["name"]) %></td>
+    <td> <%= link_to personaje, character_path(character_name: personaje) %></td>
   </tr>
   <% end %>
 </tbody>

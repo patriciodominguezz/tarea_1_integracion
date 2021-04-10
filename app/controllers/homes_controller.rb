@@ -109,9 +109,27 @@ def search_characters
 end
 
 def view_characters
+    @search = Home.new
     @busqueda = params[:datos]["search"]
-    @nuevo = DataSummary.new(@busqueda)
-    @resultado_final = @nuevo.search
+    @mayuscula = @busqueda.capitalize
+    #@nuevo_1 = DataSummary.new(@busqueda)
+    #@resultado_final = @nuevo.search
+    cantidad = 0
+    @personajes = []
+    while true
+        @nuevo_2 = DataSummary.new(cantidad.to_s)
+        @datos = @nuevo_2.characters
+        (0..@datos.length()-1).each do |i|
+            if (not @datos[i]['name'].nil?) and (@datos[i]['name'].include? @mayuscula)
+                @personajes.append(@datos[i]['name'])
+            end
+        end
+        if (@datos.length() < 10)
+            break
+        else
+        cantidad += 10 
+        end
+    end
 end
 
 private
