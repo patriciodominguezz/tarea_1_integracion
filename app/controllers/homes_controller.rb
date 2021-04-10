@@ -72,60 +72,34 @@ def better_call_saul_episodes
 end 
 
 def characters
-    @search = Home.new
-    @datos_1 = @data_service.characters_10
-    @datos_2 = @data_service.characters_20
-    @datos_3 = @data_service.characters_30
-    @datos_4 = @data_service.characters_40
-    @datos_5 = @data_service.characters_50
-    @datos_6 = @data_service.characters_60
-    @datos_7 = @data_service.characters_70
-    @quotes = @data_service.quotes
-    @name = params[:character_name]
-    @frases = []
+     @search = Home.new
+     cantidad = 0
+     @quotes = @data_service.quotes
+     @name = params[:character_name]
+     @frases = []
 
-    (0..@datos_1.length()-1).each do |i|
-        if (not @datos_1[i]['name'].nil?) and (@datos_1[i]['name'] == @name)
-            @personaje = @datos_1[i]
+     while true
+        @nuevo = DataSummary.new(cantidad.to_s)
+        @datos = @nuevo.characters
+        (0..@datos.length()-1).each do |i|
+            if (not @datos[i]['name'].nil?) and (@datos[i]['name'] == @name)
+                @personaje = @datos[i]
+                break
+            end
         end
-    end 
-    (0..@datos_2.length()-1).each do |i|
-        if (not @datos_2[i]['name'].nil?) and (@datos_2[i]['name'] == @name)
-            @personaje = @datos_2[i]
+        if !@personaje.nil?
+            break
+        else
+        cantidad += 10 
         end
-    end 
-    (0..@datos_3.length()-1).each do |i|
-        if (not @datos_3[i]['name'].nil?) and (@datos_3[i]['name'] == @name)
-            @personaje = @datos_3[i]
-        end
-    end 
-    (0..@datos_4.length()-1).each do |i|
-        if (not @datos_4[i]['name'].nil?) and (@datos_4[i]['name'] == @name)
-            @personaje = @datos_4[i]
-        end
-    end 
-    (0..@datos_5.length()-1).each do |i|
-        if (not @datos_5[i]['name'].nil?) and (@datos_5[i]['name'] == @name)
-            @personaje = @datos_5[i]
-        end
-    end 
-    (0..@datos_6.length()-1).each do |i|
-        if (not @datos_6[i]['name'].nil?) and (@datos_6[i]['name'] == @name)
-            @personaje = @datos_6[i]
-        end
-    end 
+    end
 
-    (0..@datos_7.length()-1).each do |i|
-        if (not @datos_7[i]['name'].nil?) and (@datos_7[i]['name'] == @name)
-            @personaje = @datos_7[i]
-        end
-    end 
-    (0.. @quotes.length()-1).each do |i|
+     (0.. @quotes.length()-1).each do |i|
         if (@quotes[i]['author'] == @name)
             @frases.append([@quotes[i]["quote"],@quotes[i]["series"]])
         end
-    end    
-end 
+     end
+end
 
 def search_characters
     @busqueda = params.require(:home).permit(:search)
